@@ -7,7 +7,11 @@ async function getLearningItem(slug) {
   // 假设你的 Strapi 运行在 localhost:1337
   const res = await fetch(
     `${process.env.STRAPI_URL}/api/learning-items?filters[slug][$eq]=${slug}&populate[hanzi_details]=*&populate[media_assets][populate]=*`, 
-    { cache: 'no-store' } // 开发阶段禁用缓存，方便调试
+    {  
+        headers: {
+            Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+        },
+        cache: 'no-store' } // 开发阶段禁用缓存，方便调试
   );
 
   const data = await res.json();
