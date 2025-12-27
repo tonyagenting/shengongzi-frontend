@@ -1,5 +1,6 @@
 import HanziPlayer from '@/components/HanziPlayer';
 import InteractiveCard from '@/components/InteractiveCard';
+import Link from 'next/link'; // 使用 Link 组件更方便
 
 // 1. 定义获取数据的函数
 async function getLearningItem(slug) {
@@ -24,9 +25,10 @@ async function getLearningItem(slug) {
   return data.data[0];
 }
 
-export default async function LearningPage({ params }) {
+export default async function LearningPage({ params, searchParams }) {
   const { slug } = await params;
   const item = await getLearningItem(slug);
+  const { from } = await searchParams; // 获取 ?from=xxx
 
   if (!item) {
     return <div className="text-center mt-20 text-2xl">找不到这个内容哦 🐢</div>;
@@ -35,6 +37,11 @@ export default async function LearningPage({ params }) {
   const { title, simple_description, hanzi_details, theme_color, media_assets } = item;
   // 获取颜色，如果没有就给个默认色
   const bgColor = theme_color || '#fef3c7'; 
+
+  // 2. 动态计算返回链接
+  // 如果有 from 参数，就回地图页；如果没有，就回总入口
+  const backLink = from ? `/learn?category=${from}` : '/learn';
+  const backText = from ? '⬅️回到地图' : '⬅️回到首页';
 
   return (
     <main 
@@ -78,11 +85,14 @@ export default async function LearningPage({ params }) {
 
       </div>
 
-      {/* 底部导航 */}
+      {/* 3. 智能返回按钮 */}
       <div className="mt-12">
-        <a href="/" className="text-xl font-bold text-gray-500 hover:text-gray-800 transition">
-          ⬅️ 回到首页
-        </a>
+        <Link 
+          href={backLink} 
+          className="px-8 py-4 bg-white/50 hover:bg-white rounded-full text-xl font-bold text-gray-700 shadow-md transition"
+        >
+          {backText}
+        </Link>
       </div>
     </main>
   );
