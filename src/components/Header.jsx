@@ -10,6 +10,7 @@ const oswald = Oswald({
 const navLinks = [
   { name: 'Products', href: '/products' },
   { name: 'About', href: '/about' },
+  { name: 'Hanzi', href: '/learn/da-xiong-mao' },
 ];
 
 export default function Header() {

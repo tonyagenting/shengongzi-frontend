@@ -2,13 +2,10 @@
 import React from 'react';
 import Link from 'next/link';
 
-// const STRAPI_URL = "http://localhost:1337";
-const STRAPI_URL = "https://leading-laughter-490014d4cf.strapiapp.com";
-
 // 2. 定义一个异步函数来获取数据
 async function getProducts() {
   try {
-    const res = await fetch(`${STRAPI_URL}/api/products?populate=*`, {
+    const res = await fetch(`${process.env.STRAPI_URL}/api/products?populate=*`, {
       headers: {
         // ✅ 这里是在服务器端运行，所以能读到私密的 STRAPI_API_TOKEN
         Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
