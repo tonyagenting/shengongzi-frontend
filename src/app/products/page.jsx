@@ -5,7 +5,7 @@ import Link from 'next/link';
 // 2. 定义一个异步函数来获取数据
 async function getProducts() {
   try {
-    const res = await fetch(`${process.env.STRAPI_URL}/api/products?populate=*`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/products?populate=*`, {
       headers: {
         // ✅ 这里是在服务器端运行，所以能读到私密的 STRAPI_API_TOKEN
         Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,

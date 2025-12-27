@@ -6,7 +6,7 @@ async function getLearningItem(slug) {
   // 注意：Strapi 的 URL 结尾通常需要加 populate=* 才能把图片和组件数据取出来
   // 假设你的 Strapi 运行在 localhost:1337
   const res = await fetch(
-    `${process.env.STRAPI_URL}/api/learning-items?filters[slug][$eq]=${slug}&populate[hanzi_details]=*&populate[media_assets][populate]=*`, 
+    `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/learning-items?filters[slug][$eq]=${slug}&populate[hanzi_details]=*&populate[media_assets][populate]=*`, 
     {  
         headers: {
             Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
